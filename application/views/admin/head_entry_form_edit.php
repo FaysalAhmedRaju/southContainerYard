@@ -1,0 +1,111 @@
+<div class="content-wrapper">
+
+    <div class="col-md-12" id="head" style="background-color:inherit ">
+        <div class="col-md-12" style="background-color: /*#f8f9f9 */ paleturquoise ; border-radius: 20px;">
+            <h4 class="text-center ok"><b>Head Entry Form</b></h4><br>
+           <?php //print_r($edata); exit(); ?>
+            <!--         <div class="alert alert-success" id="savingSuccessHead" ></div>-->
+            <!--          <div class="alert alert-danger" id="savingErrorHead"></div>-->
+            <!--            class="col-md-12 col-md-offset-4"-->
+            <div  class="col-md-4 col-md-offset-5">
+                <?php if ($this->session->flashdata('success')){ ?>
+                    <div id="mydivs" class="alert alert-success">
+                        <?php echo $this->session->flashdata('success'); ?>
+                    </div>
+
+                <?php    } ?>
+                <script>
+                    setTimeout(function() {
+                        $('#mydivs').hide('fast');
+                    }, 3000);
+                </script>
+                <?php if ($this->session->flashdata('error')){ ?>
+                    <div id="errorDiv" class="alert alert-danger">
+                        <?php echo $this->session->flashdata('error'); ?>
+                    </div>
+
+                <?php    } ?>
+                <script>
+                    setTimeout(function() {
+                        $('#errorDiv').hide('fast');
+                    }, 3000);
+                </script>
+                <!--name="Account_Form" id="Account_Form" novalidate-->
+                <form action="<?php echo base_url('admin_controller/update_head');?>"
+                      method="POST">
+                    <fieldset>
+                        <input type="hidden" name="id" value="<?php echo $edata->id?>">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Head</label>
+                            <input type="text" class="form-control" id="head_name" name="head_name" value="<?php echo $edata->head_name ?>"
+                                   aria-describedby="emailHelp"  placeholder="Type Head Name" >
+
+                        </div>
+                        <!--                        <div class="form-group">-->
+                        <!--                            <label for="exampleInputPassword1">Password</label>-->
+                        <!--                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">-->
+                        <!--                        </div>-->
+
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </fieldset>
+                </form>
+                <br>
+            </div>
+        </div>
+        <div>
+            <span>  &nbsp;</span>
+        </div>
+        <div class="col-md-12"  style="background-color: #bee5eb; /*whitesmoke*/">
+            <?php //print_r($data); exit(); ?>
+            <table class="table table-bordered" >
+                <caption><h4 class="text-center ok">Head List</h4></caption>
+                <thead>
+                <tr>
+                    <th style="text-align: center">S/L</th>
+                    <th style="text-align: center">Head ID</th>
+                    <th style="text-align: center">Head Name</th>
+                    <th style="text-align: center">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php   $i = 1;
+                foreach ($data as $d) {
+                    ?>
+                    <tr>
+                        <td style="text-align: center"><?php echo $i++ ?></td>
+                        <td style="text-align: center"><?php echo $d->id ?></td>
+                        <td style="text-align: center"><?php echo $d->head_name ?></td>
+                        <td style="text-align: center">
+                            <a href="<?php echo base_url('admin_controller/edit/'.$d->id); ?>" class="btn btn-success btn-sm" >
+                                Edit
+                            </a>
+                            <!--                            --><?php // echo anchor('admin_controller/edit/'.$d->id,
+                            //                                'Edit',['class' => 'btn btn-success btn-sm']);?>
+
+                            <a href="<?php echo base_url('admin_controller/delete/'.$d->id); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Do You Want To Delete?');">
+                                Delete
+                            </a>
+                            <!--                            --><?php //echo anchor('admin_controller/delete/'.$d->id,
+                            //                                'Delete',['class' => 'btn btn-danger btn-sm']);?>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="4" class="text-center">
+
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+            <?php
+            echo  $this->pagination->create_links();
+            ?>
+        </div>
+    </div>
+</div>
+
+
